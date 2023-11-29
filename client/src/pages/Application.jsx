@@ -14,28 +14,25 @@ const Application = () => {
     const getAppliedJobs = async () => {
       setIsFetching(true);
 
-      try {
-        const res = await apiRequest({
-          url: `/jobs/get-applied-jobs/${user?._id}`,
-          method: "GET",
-        });
+      // try {
+      //   const res = await apiRequest({
+      //     url: "/userapplications/",
+      //     token: user?.token,
+      //     method: "GET",
 
-        setAppliedJobs(res?.appliedJobs || []);
-        setIsFetching(false);
-      } catch (error) {
-        setIsFetching(false);
-        console.log(error);
-      }
+      //   });
+      //   console.log(res);
+      //   setAppliedJobs(res?.appliedJobs || []);
+      //   setIsFetching(false);
+      // } catch (error) {
+      //   setIsFetching(false);
+      //   console.log(error);
+      // }
     };
 
     getAppliedJobs();
   }, [user?._id]);
 
-
-  useEffect(() => {
-    id && getJobDetails();
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-  }, [id]);
 
 
 
@@ -49,7 +46,7 @@ const Application = () => {
         <Loading />
       ) : (
         <div className='w-full md:w-1/3 2xl:w-2/4 p-5 mt-20 md:mt-0'>
-        <p className='text-gray-500 font-semibold'>Applied jobs </p>
+        <p className='text-gray-500 font-semibold'> Applied jobs </p>
 
         <div className='w-full flex flex-wrap gap-4'>
           {appliedJobs?.slice(0, 6).map((job, index) => {

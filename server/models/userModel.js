@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose,{Schema} from "mongoose";
 import validator from "validator";
 import bcrypt from "bcryptjs";
 import JWT from "jsonwebtoken";
@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema(
     cvUrl: { type: String },
     jobTitle: { type: String },
     about: { type: String },
-    userapplications: [{ type: Schema.Types.ObjectId, ref: "jobs" }],
+    userapplications: [{ type: Schema.Types.ObjectId, ref: "Jobs" }],
   },
   { timestamps: true }
 );

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Linkedin } from "../assets";
 import moment from "moment";
 import { AiOutlineSafetyCertificate } from "react-icons/ai";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { jobs } from "../utils/data";
 import { CustomButton, JobCard, Loading } from "../components";
 import { handleFileUpload } from "../utils";
@@ -19,7 +19,8 @@ const JobDetail = () => {
 
   const [selected, setSelected] = useState("0");
   const [isFetching, setIsFetching] = useState(false); 
-
+  const [refresh, setRefresh] = useState();
+  const [stateapply, setStateApply] = useState("Apply Now");
   const getJobDetails = async () =>{
     
     setIsFetching(true);
@@ -39,15 +40,31 @@ const JobDetail = () => {
     }
   };
 
+const handleApplyToJob = async (jobId) => {
+  const jobid = jobId;
+  const userId = user?._id || null;
 
-  const handleAddToCart = (jobId) =>{
-    const jobid = jobId;
-    const userId = user?.['_id'] || null;
 
+  const _data = {jobId: jobid, userId };
 
-    console.log('User ID:', userId);
-    console.log({ jobid, userId });
-  };
+  try {
+    const res = await apiRequest({
+      url: "/users/userapplications/",
+      token: user?.token,
+      method: "POST",
+      data: _data,
+    });
+
+    setStateApply("Applied Successfully !!!");
+    console.log("Successfully applied", res);
+  } catch (error) {
+    console.error("Error applying to job:", error.message || error);
+  }
+
+  console.log('User ID:', userId);
+  console.log({ jobId, userId });
+};
+
 
   const handleDeletePost = async () => {
     setIsFetching(true);
@@ -214,15 +231,23 @@ const JobDetail = () => {
               containerStyles={`w-full flex items-center justify-center text-white bg-black py-3 px-5 outline-none rounded-full text-base`}
             />
            ) : (
+            <a href={job?.detail[0]?.requirements} target="_blank" rel="noopener noreferrer">
+            
+          
+          
+           
             <CustomButton
-              title='Apply Now'
-              onClick={()=>{
+              title={stateapply}
+              // onClick={()=>{
+                  
+              //   handleApplyToJob(job._id)
 
-                  handleAddToCart(job._id)
-
-              }}
+              // }}
               containerStyles={`w-full flex items-center justify-center text-white bg-black py-3 px-5 outline-none rounded-full text-base`}
             />
+
+          
+            </a>
            )}
           </div>
         </div>

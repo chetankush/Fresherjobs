@@ -174,7 +174,7 @@ const UploadJob = () => {
 
             <div className='flex flex-col'>
               <label className='text-gray-600 text-sm mb-1'>
-                Requirements
+                Link to the official Job Pos
               </label>
               <textarea
                 className='rounded border border-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-base px-4 py-2 resize-none'

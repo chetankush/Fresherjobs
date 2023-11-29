@@ -133,7 +133,7 @@ const Navbar = () => {
               <Link 
               to={
                 user?.accountType ==="seeker"
-                 ? "/applications" 
+                 ? "/userapplications" 
                  : '/upload-job'
                  }
                 >

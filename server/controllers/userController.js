@@ -83,7 +83,26 @@ export const getUser = async (req, res, next) => {
   }
 };
 
-// export const userapplication = async(req, res, next)=>{
-//      console.log(req.body, "87")
-//      return res.send("add")
-// };
+export const userapplications = async(req, res, next)=>{
+    //  console.log(req.body, "87")
+    //  return res.send("add")
+
+     console.log(req.body, "62")
+     console.log(res.body, "62")
+
+     const isUpdate = await Users.updateOne({ _id: req.body.userId }, {
+         $addToSet: { userapplications: req.body.JobId }
+        })
+     console.log(Users);
+
+     console.log(req.body.userId);
+ 
+     if (isUpdate) {
+         return res.send({ code: 200, message: 'Add to userprofile success.' })
+     } else {
+         return res.send({ code: 500, message: 'Server Err' })
+ 
+     }
+
+
+    };
